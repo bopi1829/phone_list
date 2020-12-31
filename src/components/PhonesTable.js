@@ -20,13 +20,13 @@ class PhonesTable extends Component {
         const rows = [];
         this.props.phones.forEach(phone => {
             console.log('Phones', phone.modele)
-            rows.push(<PhoneRow key = "1" phone = {phone}/>)
+            rows.push(<PhoneRow key = {phone.modele} phone = {phone}/>)
         });
         //rows.push(<PhoneRow key = "1"/>);
         //rows.push(<PhoneRow key = "2"/>);
         
         return(
-            <div style ={{"backgroundColor": "purple"}}>
+            <div style ={{"backgroundColor": "violet"}}>
                 <table>
                     <thead>
                         <tr>
