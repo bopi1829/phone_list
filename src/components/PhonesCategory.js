@@ -13,9 +13,9 @@ class PhonesCategory extends Component {
 
     render() {
         return(
-            <div style ={{"backgroundColor": "orange"}}>
-                PhonesCategory
-            </div>
+            <tr>
+                <th colSpan = "2">{this.props.marque}</th>
+            </tr>
         )
     }
 }

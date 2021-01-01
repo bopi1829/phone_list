@@ -11,22 +11,33 @@ import PhonesCategory from './PhonesCategory';
 class PhonesTable extends Component {
     constructor(props) {
         super(props);
-        console.log("PhonesTable", props.phones)
+        //console.log("PhonesTable", props.phones)
 
     }
 
     render() {
-
+        const filterText = this.props.filterText;
+        const inStockOnly = this.props.inStockOnly;
+        let phonesBrand;
         const rows = [];
         this.props.phones.forEach(phone => {
-            console.log('Phones', phone.modele)
+            //console.log('Phones', phone.modele)
+            if (phone.modele.toLowerCase().indexOf(filterText) === -1 && phone.marque.toLowerCase().indexOf(filterText) === -1) {
+                return;
+            }   
+
+            if (inStockOnly && !phone.stocked) {
+                return;
+            }
+
+            if (phone.marque !== phonesBrand) {
+                rows.push(<PhonesCategory marque = {phone.marque}/>)
+            }
             rows.push(<PhoneRow key = {phone.modele} phone = {phone}/>)
+            phonesBrand = phone.marque;
         });
-        //rows.push(<PhoneRow key = "1"/>);
-        //rows.push(<PhoneRow key = "2"/>);
-        
         return(
-            <div style ={{"backgroundColor": "violet"}}>
+            <div>
                 <table>
                     <thead>
                         <tr>
@@ -36,13 +47,10 @@ class PhonesTable extends Component {
                             <th>Memoire</th>
                             <th>Prix</th>
                         </tr>
+                    </thead>
                     {rows}
-                </thead>
                 </table>
-                {/**
-                <PhonesCategory/>
-                <PhoneRow/> 
-                */}
+                
                 
             </div>
         )

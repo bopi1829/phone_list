@@ -9,20 +9,43 @@
  import PhonesTable from './PhonesTable';
 
  class FilterablePhonesTable extends Component {
-     constructor(props) {
-         super(props);
-         console.log("Filterable", props.phones)
-     }
+    constructor(props) {
+        super(props);
+        console.log("Filterable", props.phones)
+        this.state = {
+             filterText : "",
+             inStockOnly : false
+        }
+    }
 
-     render() {
-         return(
-             <div style = {{"backgroundColor": "blue"}}>
-                 FilterablePhonesTable
-                 <SearchCompo/>           
-                 <PhonesTable phones = {this.props.phones}/>
-             </div>
-         )
-     }
+    handleSearchPhoneTextChange = (e) => {
+        console.log('Search parent :', e)
+        this.setState({filterText : e})
+    }
+
+    handleinStockChange = (e) => {
+        console.log('Checkbox parent :', e)
+        this.setState({inStockOnly : e})
+    }
+
+    render() {
+        return(
+            <div>
+                FilterablePhonesTable
+                 <SearchCompo
+                    filterText = {this.state.filterText}
+                    inStockOnly = {this.state.inStockOnly}
+                    handleSearchPhoneTextChange = {this.handleSearchPhoneTextChange}
+                    handleinStockChange = {this.handleinStockChange}
+                />           
+                <PhonesTable 
+                    phones = {this.props.phones}
+                    filterText = {this.state.filterText}
+                    inStockOnly = {this.state.inStockOnly}
+                />
+            </div>
+        )
+    }
  }
 
- export default FilterablePhonesTable;
+export default FilterablePhonesTable;
